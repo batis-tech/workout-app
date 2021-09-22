@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_184007) do
+ActiveRecord::Schema.define(version: 2021_09_21_173831) do
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string "slug", null: false
@@ -34,8 +34,17 @@ ActiveRecord::Schema.define(version: 2021_09_20_184007) do
     t.boolean "admin", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.string "subdomain"
+    t.string "name"
+    t.index ["email", "subdomain"], name: "index_users_on_email_and_subdomain", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "workouts", force: :cascade do |t|
+    t.string "title"
+    t.datetime "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
